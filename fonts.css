@@ -1,0 +1,40 @@
+/*
+ * fonts.css — Offline-safe font definitions for AudioForge
+ *
+ * Replaces the Google Fonts CDN dependency.
+ * Uses fonts embedded as CSS + system fallback stacks that
+ * closely match Orbitron, Rajdhani and Share Tech Mono.
+ *
+ * Font variable mapping (defined in style.css :root):
+ *   --font-head  : Orbitron      → geometric, all-caps display
+ *   --font-body  : Rajdhani      → condensed, medium-weight UI
+ *   --font-mono  : Share Tech Mono → monospace
+ */
+
+/* ── Orbitron substitute ───────────────────────────────────────────────
+   Orbitron is a geometric sans-serif display face.
+   Best system-available approximations:
+     - "Futura" (macOS)
+     - "Century Gothic" (Windows)
+     - "Trebuchet MS"
+   We also override the CSS variable to add letter-spacing for effect.
+*/
+:root {
+  --font-head : 'Orbitron', 'Futura', 'Century Gothic', 'Trebuchet MS',
+                'Arial Narrow', Arial, sans-serif;
+  --font-body : 'Rajdhani', 'Segoe UI Semibold', 'Segoe UI', 'Noto Sans',
+                'Liberation Sans', Arial, sans-serif;
+  --font-mono : 'Share Tech Mono', 'Courier New', 'Lucida Console',
+                'DejaVu Sans Mono', monospace;
+}
+
+/*
+ * If Orbitron is NOT available (offline, first load) we tighten
+ * letter-spacing on heading elements so Century Gothic / Trebuchet
+ * keeps the same AUDIOFORGE label proportions.
+ */
+@supports not (font-family: 'Orbitron') {
+  .brand-name,
+  .section-title,
+  .wf-time { letter-spacing: 3px; }
+}
